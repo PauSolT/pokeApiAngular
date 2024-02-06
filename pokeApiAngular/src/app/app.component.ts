@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { PokedexService } from '../services/pokedex.service';
+import { PokemonData } from '../interfaces/pokemon-data';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,12 @@ import { PokedexService } from '../services/pokedex.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'pokeApiAngular';
-  
-  P = inject(PokedexService);
+  pokemonData!: PokemonData;
+
+  constructor(private pokedexService: PokedexService) {
+    this.pokedexService.getPokemonData("bulbasaur").then((pokemon: PokemonData) => {
+      this.pokemonData = pokemon;
+      console.log(this.pokemonData);
+    });
+  }
 }

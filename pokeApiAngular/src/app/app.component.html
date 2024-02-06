@@ -1,3 +1,9 @@
 <main>
-  
+  @defer {
+    <p>{{pokemonData.name}}</p>
+  } @placeholder {
+    <p>Loading...</p>
+  } @loading (minimum 0.5s) {
+    <p>Loading...</p>
+  }
 </main>

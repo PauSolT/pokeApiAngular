@@ -1,26 +1,25 @@
 import { Injectable } from '@angular/core';
-import Pokedex from 'pokedex-promise-v2';
 import axios from 'axios';
+import { PokemonData } from '../interfaces/pokemon-data';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PokedexService {
-  P = new Pokedex();
+  constructor() {}
 
-  getPokedex(): Pokedex{
-    return this.P;
+  async getPokemonData(pokemonNameOrId: string): Promise<PokemonData> {
+    try {
+      const response = await axios
+        .get(`https://pokeapi.co/api/v2/pokemon/${pokemonNameOrId}`);
+      const res = response.data;
+      return {
+        id: res.id,
+        name: res.name,
+      } as PokemonData;
+    } catch (error) {
+      console.log('There was an ERROR: ', error);
+      return await Promise.reject(error);
+    }
   }
-
-  getPokemonName(): void{
-    axios.get(`https://pokeapi.co/api/v2/pokemon/pikachu`)
-  .then((response) => {
-    console.log(response.data);
-  })
-  .catch((error) => {
-    console.log('There was an ERROR: ', error);
-  });
-  }
-
-  constructor() { }
 }
