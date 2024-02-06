@@ -1,9 +1,16 @@
 <main>
-  @defer {
-    <p>{{pokemonData.name}}</p>
-  } @placeholder {
-    <p>Loading...</p>
-  } @loading (minimum 0.5s) {
-    <p>Loading...</p>
-  }
+  <a [routerLink]="['/']" class="routers">
+    <header>
+      <h2>Pokedex</h2>
+    </header>
+  </a>
+  <a [routerLink]="['pokemons']" class="routers">
+    <header>
+      <h2>Pokemons</h2>
+    </header>
+  </a>
+  <section class="content">
+    <router-outlet></router-outlet>
+  </section>
+
 </main>
