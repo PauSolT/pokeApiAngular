@@ -1,1 +1,20 @@
-<p>pokemon-card works!</p>
+<div class="container">
+    <div class="row">
+        @for (pokemon of randomPokemonData; track pokemon.id) {
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <img class="card-img-top" [src]="pokemon.spriteUrl" [alt]="pokemon.name" width="128" height="128">
+                <div class="card-body">
+                    <h2 class="card-title">{{ pokemon.name | titlecase }}</h2>
+                    <p class="card-text">{{ pokemon.description }}</p>
+                    <p class="card-text">
+                        Types:
+                        <span>{{ pokemon.types[0] | titlecase }} </span>
+                        <span>{{ pokemon.types[1] | titlecase }}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
