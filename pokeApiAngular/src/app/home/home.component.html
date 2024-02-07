@@ -1,7 +1,45 @@
-@defer {
-  <p>{{pokemonData.name}}</p>
-} @placeholder {
-  <p>Loading...</p>
-} @loading (minimum 0.5s) {
-  <p>Loading...</p>
-}
+<main>
+  <section id="landing-info">
+    <p>Welcome to the Pokedex created with Angular! You will be able to get information about your favourite Pokemons!</p>
+  </section>
+
+  <section id="pokedex-container">
+    <div id="pokedex-box">
+      @defer {
+        <img [ngSrc]=pokemonData.spriteUrl [alt]=pokemonData.name width="150" height="150">
+        <div>
+          <div class="homeStats">
+            <p><strong>{{pokemonData.stats.hp.name}}</strong>: </p>
+            <p>{{pokemonData.stats.hp.value}}</p>
+          </div>
+          <div class="homeStats">
+            <p><strong>{{pokemonData.stats.attack.name}}</strong>: </p>
+            <p>{{pokemonData.stats.attack.value}}</p>
+          </div>
+          <div class="homeStats">
+            <p><strong>{{pokemonData.stats.defense.name}}</strong>: </p>
+            <p>{{pokemonData.stats.defense.value}}</p>
+          </div>
+          <div class="homeStats">
+            <p><strong>{{pokemonData.stats.specialAttack.name}}</strong>: </p>
+            <p>{{pokemonData.stats.specialAttack.value}}</p>
+          </div>
+          <div class="homeStats">
+            <p><strong>{{pokemonData.stats.specialDefense.name}}</strong>: </p>
+            <p>{{pokemonData.stats.specialDefense.value}}</p>
+          </div>
+          <div class="homeStats">
+            <p><strong>{{pokemonData.stats.speed.name}}</strong>: </p>
+            <p>{{pokemonData.stats.speed.value}}</p>
+          </div>
+        </div>
+      } @placeholder {
+        <p>Loading...</p>
+      } @loading (minimum 1s) {
+        <p>Loading...</p>
+      } @error {
+        <p>Failed to load...</p>
+      }
+    </div>
+  </section>
+</main>

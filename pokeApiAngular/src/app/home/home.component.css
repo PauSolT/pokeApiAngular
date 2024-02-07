@@ -1,0 +1,21 @@
+#pokedex-container {
+  background-color: rgb(165, 39, 39);
+  min-width: 25%;
+  max-width: 75%;
+  margin: 0 auto;
+  width: 350px;
+  height: 400px;
+}
+
+#pokedex-box {
+  background-color: white;
+  min-width: 15%;
+  max-width: 65%;
+  width: 250px;
+  height: 200px;
+  align-self: center;
+}
+
+.homeStats {
+  display: inline-flex;
+}

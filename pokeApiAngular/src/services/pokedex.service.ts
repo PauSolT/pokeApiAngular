@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { PokemonData } from '../interfaces/pokemon-data';
 import { NoEndOfLines } from '../Utils/Utils.js';
+import { PokemonStats } from '../interfaces/pokemon-stats';
+import { PokemonStat } from '../interfaces/pokemon-stat';
+import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class PokedexService {
-  constructor() {}
+  constructor() { }
 
   async getPokemonData(pokemonNameOrId: string): Promise<PokemonData> {
     try {
@@ -15,9 +18,36 @@ export class PokedexService {
       );
       const res = response.data;
       let pokemonDescription = '';
+      let pokemonStats!: PokemonStats;
       await getPokemonDescription(pokemonNameOrId).then(
         (description: string) => (pokemonDescription = description)
       );
+      console.log(res.stats);
+      let pokemonStat: PokemonStat[] = [];
+
+      res.stats.map((stat: any) => {
+        pokemonStat.push({
+          name: stat.stat.name,
+          value: stat.base_stat,
+          effort: stat.effort
+        })
+      });
+
+      pokemonStats = {
+        hp: pokemonStat[0],
+        attack: pokemonStat[1],
+        defense: pokemonStat[2],
+        specialAttack: pokemonStat[3],
+        specialDefense: pokemonStat[4],
+        speed: pokemonStat[5],
+      }
+
+      // pokemonStats.hp = res.stats[0].base_stat;
+      // pokemonStats.attack = res.stats[1].base_stat;
+      // pokemonStats.defense = res.stats[2].base_stat;
+      // pokemonStats.specialAttack = res.stats[3].base_stat;
+      // pokemonStats.specialDefense = res.stats[4].base_stat;
+      // pokemonStats.speed = res.stats[5].base_stat;
       return {
         id: res.id,
         name: res.name,
@@ -27,7 +57,15 @@ export class PokedexService {
           res.types.length > 1 ? res.types[1].type.name : '',
         ],
         description: pokemonDescription,
+        stats: pokemonStats
+        // hp: res.stats[0].base_stat,
+        // attack: res.stats[1].base_stat,
+        // defense: res.stats[2].base_stat,
+        // specialAttack: res.stats[3].base_stat,
+        // specialDefense: res.stats[4].base_stat,
+        // speed: res.stats[5].base_stat,
       } as PokemonData;
+
     } catch (error) {
       console.log('There was an ERROR: ', error);
       return await Promise.reject(error);
